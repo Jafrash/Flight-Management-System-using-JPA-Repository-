@@ -154,17 +154,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 ```
 
-Important: Update `spring.datasource.password` to match your PostgreSQL setup.
 
-## Build & run (Windows PowerShell)
-
-Prerequisites
-
-- JDK 17 installed and JAVA_HOME set
-- Maven installed (optional — wrapper included)
-- PostgreSQL running and accessible; create a database named `demo` or update `spring.datasource.url` to match your database
-
-Build using Maven wrapper (recommended on Windows PowerShell)
 
 1. Open PowerShell and navigate to the project directory
 2. Run:
@@ -219,34 +209,3 @@ Testing the API (example with curl)
   curl http://localhost:8080/flights/1
   ```
 
-## Troubleshooting
-
-- Database connection errors:
-  - Verify PostgreSQL is running and the `spring.datasource.url` matches host/port/database
-  - Make sure the username/password are correct
-  - Ensure the `postgresql` driver is on the classpath (pom.xml includes it as runtime dependency)
-
-- Port already in use:
-  - Change the server port with `server.port=<port>` in `application.properties` or via `-Dserver.port=XXXX`
-
-- Entity not persisted or schema issues:
-  - Check `spring.jpa.hibernate.ddl-auto` (current default: `update`) and logs for DDL statements
-
-Quality gates (quick)
-
-1. Build: `.\mvnw.cmd clean install` — should complete with exit code 0
-2. Tests: `.\mvnw.cmd test` — tests should pass
-3. Smoke test: start app and call `GET /flights` to confirm 200 response
-
-## Future improvements / TODO
-
-- Add request validation (e.g., javax.validation / jakarta.validation annotations on `Flight` DTO)
-- Return proper HTTP status codes for not-found cases (404) instead of returning null bodies
-- Use DTOs for API requests/responses and map to entities (avoid exposing entity directly)
-- Add integration tests that run against a Testcontainers PostgreSQL instance
-- Add OpenAPI / Swagger documentation
-- Add logging configuration and file-based logging
-
-## License & contact
-
-- Add license information as required
